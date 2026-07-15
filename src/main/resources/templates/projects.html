@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Projects')}"></head>
+<body>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/header :: header('projects')}"></nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title" data-animate="fade-up">Projects</h1>
+            <p class="page-subtitle" data-animate="fade-up">Các dự án cá nhân tôi đã xây dựng và đang phát triển</p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div th:each="project : ${projects}" class="col-lg-6 col-xl-4" data-animate="fade-up">
+                    <div class="project-card card-glass h-100">
+                        <div class="project-image">
+                            <div class="project-image-placeholder">
+                                <i class="bi bi-code-square"></i>
+                            </div>
+                        </div>
+                        <div class="project-body p-4">
+                            <h3 class="project-name" th:text="${project.name}">Project Name</h3>
+                            <p class="project-desc" th:text="${project.description}">Project description</p>
+                            <div class="project-tech mb-3">
+                                <span th:each="tech : ${project.technologies}" class="badge-tech" th:text="${tech}">Tech</span>
+                            </div>
+                            <div class="project-links">
+                                <a th:if="${project.githubUrl != null}" th:href="${project.githubUrl}"
+                                   target="_blank" class="btn btn-sm btn-outline-custom me-2">
+                                    <i class="bi bi-github me-1"></i>GitHub
+                                </a>
+                                <a th:if="${project.demoUrl != null and project.demoUrl != '#'}" th:href="${project.demoUrl}"
+                                   target="_blank" class="btn btn-sm btn-primary-custom">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i>Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div th:if="${#lists.isEmpty(projects)}" class="col-12 text-center py-5">
+                    <i class="bi bi-folder-x display-1 text-muted"></i>
+                    <p class="text-muted mt-3">Chưa có dự án nào.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

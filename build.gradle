@@ -1,14 +1,11 @@
 plugins {
     id 'java'
-    id 'application'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.yourname'
+group = 'com.danh'
 version = '1.0.0'
-
-repositories {
-    mavenCentral()
-}
 
 java {
     toolchain {
@@ -16,10 +13,30 @@ java {
     }
 }
 
-application {
-    mainClass = 'com.yourname.blog.Application'
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // Spring Boot Web (includes embedded Tomcat, Spring MVC)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Thymeleaf Template Engine
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // Spring Boot DevTools (auto-restart during development)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Lỗi')}"></head>
+<body>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/header :: header('')}"></nav>
+
+    <!-- Error Content -->
+    <section class="error-section">
+        <div class="container text-center">
+            <div class="error-content" data-animate="fade-up">
+                <h1 class="error-code">500</h1>
+                <div class="error-icon">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h2 class="error-title">Đã xảy ra lỗi</h2>
+                <p class="error-message" th:text="${errorMessage} ?: 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.'">
+                    Lỗi hệ thống.
+                </p>
+                <a th:href="@{/}" class="btn btn-primary-custom mt-4">
+                    <i class="bi bi-house me-2"></i>Về trang chủ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

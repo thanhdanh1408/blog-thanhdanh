@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('About')}"></head>
+<body>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/header :: header('about')}"></nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title" data-animate="fade-up">About Me</h1>
+            <p class="page-subtitle" data-animate="fade-up">Tìm hiểu thêm về tôi, kỹ năng và hành trình phát triển</p>
+        </div>
+    </section>
+
+    <!-- Bio Section -->
+    <section class="section" id="bio">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-animate="fade-up">
+                    <div class="card-glass p-4 p-md-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="section-icon me-3">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <h2 class="section-title mb-0">Giới thiệu</h2>
+                        </div>
+                        <p class="bio-text" th:text="${bio}">Bio text</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-animate="fade-up">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="section-icon me-3">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+                        <h2 class="section-title mb-0">Học vấn</h2>
+                    </div>
+                    <div th:each="edu : ${education}" class="card-glass p-4 mb-3">
+                        <h3 class="h5 text-accent" th:text="${edu['school']}">School</h3>
+                        <p class="mb-1"><i class="bi bi-bookmark me-2"></i><span th:text="${edu['major']}">Major</span></p>
+                        <p class="mb-1"><i class="bi bi-calendar me-2"></i><span th:text="${edu['period']}">Period</span></p>
+                        <p class="text-muted mb-0" th:text="${edu['description']}">Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-animate="fade-up">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="section-icon me-3">
+                            <i class="bi bi-gear-fill"></i>
+                        </div>
+                        <h2 class="section-title mb-0">Kỹ năng</h2>
+                    </div>
+                    <div class="row g-3">
+                        <div th:each="skill : ${skills}" class="col-md-6">
+                            <div class="card-glass p-4 h-100">
+                                <h3 class="h6 text-accent mb-3" th:text="${skill['category']}">Category</h3>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span th:each="item : ${skill['items']}" class="badge-skill" th:text="${item}">Skill</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="section" id="techstack">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-animate="fade-up">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="section-icon me-3">
+                            <i class="bi bi-stack"></i>
+                        </div>
+                        <h2 class="section-title mb-0">Tech Stack</h2>
+                    </div>
+                    <div class="row g-3">
+                        <div th:each="tech : ${techStack}" class="col-4 col-md-3 col-lg-2">
+                            <div class="tech-card text-center p-3">
+                                <i class="bi tech-icon" th:classappend="${tech['icon']}"></i>
+                                <p class="tech-name mb-0" th:text="${tech['name']}">Tech</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section" id="timeline">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-animate="fade-up">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="section-icon me-3">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <h2 class="section-title mb-0">Timeline</h2>
+                    </div>
+                    <div class="timeline">
+                        <div th:each="event, iterStat : ${timeline}" class="timeline-item"
+                             th:classappend="${iterStat.even ? 'timeline-right' : 'timeline-left'}">
+                            <div class="timeline-marker">
+                                <span class="timeline-year" th:text="${event['year']}">2024</span>
+                            </div>
+                            <div class="timeline-content card-glass p-4">
+                                <h3 class="h5 text-accent" th:text="${event['title']}">Title</h3>
+                                <p class="text-muted mb-0" th:text="${event['description']}">Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,33 +1,48 @@
 package com.danh.blog.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Domain model representing a blog post.
+ * JPA entity representing a blog post.
  *
- * <p>Contains all the information needed to display a blog post
- * in both list view (title, description, date) and detail view
- * (full content).
- *
- * <p>In Version 1, instances are created in-memory by the repository.
- * In Version 2, this will be mapped to a database table via JPA.
+ * <p>Mapped to the "blogs" table in the database.
+ * Contains all fields needed for both list and detail views.
  *
  * @author Phan Thanh Danh
- * @version 1.0.0
+ * @version 2.0.0
  */
+@Entity
+@Table(name = "blogs")
 public class Blog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 200)
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(columnDefinition = "CLOB")
     private String content;
+
+    @Column(length = 100)
     private String author;
+
     private LocalDate publishedDate;
-    private List<String> tags;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "blog_tags", joinColumns = @JoinColumn(name = "blog_id"))
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
 
     /**
-     * Default constructor.
+     * Default constructor required by JPA.
      */
     public Blog() {
     }
@@ -43,7 +58,7 @@ public class Blog {
         this.content = content;
         this.author = author;
         this.publishedDate = publishedDate;
-        this.tags = tags;
+        this.tags = tags != null ? new ArrayList<>(tags) : new ArrayList<>();
     }
 
     // ==================== Getters & Setters ====================
@@ -101,7 +116,7 @@ public class Blog {
     }
 
     public void setTags(List<String> tags) {
-        this.tags = tags;
+        this.tags = tags != null ? new ArrayList<>(tags) : new ArrayList<>();
     }
 
     @Override

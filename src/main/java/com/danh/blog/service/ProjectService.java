@@ -10,11 +10,11 @@ import java.util.Optional;
 /**
  * Service layer for project operations.
  *
- * <p>Acts as an intermediary between the controller and repository layers,
- * encapsulating business logic for project management.
+ * <p>Provides CRUD operations and business logic
+ * for project management.
  *
  * @author Phan Thanh Danh
- * @version 1.0.0
+ * @version 2.0.0
  */
 @Service
 public class ProjectService {
@@ -47,6 +47,34 @@ public class ProjectService {
      */
     public Optional<Project> getProjectById(Long id) {
         return projectRepository.findById(id);
+    }
+
+    /**
+     * Saves a new project or updates an existing one.
+     *
+     * @param project the project to save
+     * @return the saved project with generated ID
+     */
+    public Project saveProject(Project project) {
+        return projectRepository.save(project);
+    }
+
+    /**
+     * Deletes a project by its ID.
+     *
+     * @param id the project ID to delete
+     */
+    public void deleteProject(Long id) {
+        projectRepository.deleteById(id);
+    }
+
+    /**
+     * Returns the total count of projects.
+     *
+     * @return the number of projects
+     */
+    public long count() {
+        return projectRepository.count();
     }
 
 }

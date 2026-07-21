@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="sidebar(currentPage)" class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+        <a th:href="@{/admin/}" class="sidebar-brand">
+            <span class="brand-icon"><i class="bi bi-gear-fill"></i></span>
+            <span class="brand-text">Admin Panel</span>
+        </a>
+        <button class="sidebar-close d-lg-none" id="sidebarClose">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <ul class="sidebar-nav">
+        <li class="sidebar-item">
+            <a th:href="@{/admin/}" class="sidebar-link"
+               th:classappend="${currentPage == 'dashboard' ? 'active' : ''}">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/admin/blogs}" class="sidebar-link"
+               th:classappend="${currentPage == 'blogs' ? 'active' : ''}">
+                <i class="bi bi-journal-text"></i>
+                <span>Blog Posts</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/admin/projects}" class="sidebar-link"
+               th:classappend="${currentPage == 'projects' ? 'active' : ''}">
+                <i class="bi bi-code-slash"></i>
+                <span>Projects</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <a th:href="@{/}" class="sidebar-link" target="_blank">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <span>Xem Public Site</span>
+        </a>
+        <form th:action="@{/admin/logout}" method="post" class="mt-2">
+            <button type="submit" class="sidebar-link logout-btn w-100">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Đăng xuất</span>
+            </button>
+        </form>
+    </div>
+</nav>
+
+<!-- Mobile sidebar toggle -->
+<button th:fragment="sidebar-toggle" class="sidebar-toggle d-lg-none" id="sidebarToggle">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar overlay -->
+<div th:fragment="sidebar-overlay" class="sidebar-overlay d-lg-none" id="sidebarOverlay"></div>
+</body>
+</html>

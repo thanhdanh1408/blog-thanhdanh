@@ -1,31 +1,48 @@
 package com.danh.blog.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Domain model representing a personal project.
+ * JPA entity representing a personal project.
  *
- * <p>Contains project details for the portfolio showcase including
- * name, description, technologies used, and external links.
- *
- * <p>In Version 1, instances are created in-memory by the repository.
- * In Version 2, this will be mapped to a database table via JPA.
+ * <p>Mapped to the "projects" table in the database.
+ * Contains project details for the portfolio showcase.
  *
  * @author Phan Thanh Danh
- * @version 1.0.0
+ * @version 2.0.0
  */
+@Entity
+@Table(name = "projects")
 public class Project {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 200)
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(length = 500)
     private String imageUrl;
-    private List<String> technologies;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "project_technologies", joinColumns = @JoinColumn(name = "project_id"))
+    @Column(name = "technology")
+    private List<String> technologies = new ArrayList<>();
+
+    @Column(length = 500)
     private String githubUrl;
+
+    @Column(length = 500)
     private String demoUrl;
 
     /**
-     * Default constructor.
+     * Default constructor required by JPA.
      */
     public Project() {
     }
@@ -39,7 +56,7 @@ public class Project {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
-        this.technologies = technologies;
+        this.technologies = technologies != null ? new ArrayList<>(technologies) : new ArrayList<>();
         this.githubUrl = githubUrl;
         this.demoUrl = demoUrl;
     }
@@ -83,7 +100,7 @@ public class Project {
     }
 
     public void setTechnologies(List<String> technologies) {
-        this.technologies = technologies;
+        this.technologies = technologies != null ? new ArrayList<>(technologies) : new ArrayList<>();
     }
 
     public String getGithubUrl() {

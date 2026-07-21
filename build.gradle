@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.danh'
-version = '1.0.0'
+version = '2.0.0'
 
 java {
     toolchain {
@@ -25,11 +25,30 @@ dependencies {
     // Thymeleaf Template Engine
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    // Spring Data JPA (ORM + Database access)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Security (Authentication & Authorization)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Thymeleaf Spring Security integration (sec:authorize, etc.)
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // Bean Validation (form validation)
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // H2 Database (embedded, file-based for development)
+    runtimeOnly 'com.h2database:h2'
+
+    // MySQL Connector (uncomment when migrating to MySQL)
+    // runtimeOnly 'com.mysql:mysql-connector-j'
+
     // Spring Boot DevTools (auto-restart during development)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
 }
 
